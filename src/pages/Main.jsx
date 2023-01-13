@@ -26,6 +26,7 @@ import { MdTrain } from "react-icons/md";
 import BuildingV3 from "../components/BuildingV3";
 import { useLocation } from "react-router-dom";
 import Markers from "../components/Markers";
+import { orbitControlProps } from "../constants";
 
 softShadows();
 
@@ -85,7 +86,7 @@ export default function Main() {
 						<Marker pos={[0.5, 1, -3]} text={"Train Station"} modalNumber={3} />
 					</>
 				)}
-				{track === 100 ? <MapControls /> : <OrbitControls />}
+				{track === 100 ? <MapControls maxPolarAngle={orbitControlProps.maxPolarAngle} /> : <OrbitControls />}
 				{/* <DebugCam /> */}
 			</Canvas>
 		</StyledMain>
@@ -129,8 +130,11 @@ const DebugCam = () => {
 	});
 
 	return (
-		<OrbitControls ref={camRef} args={[camera, gl.domElement]}></OrbitControls>
-	);
+		<OrbitControls 
+			ref={camRef} 
+			args={[camera, gl.domElement]} 
+		/>
+	)
 };
 
 const Marker = ({ pos, text, modalNumber }) => {
