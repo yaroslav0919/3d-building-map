@@ -145,7 +145,21 @@ export default function Model(props) {
 		gsap.to(camera, { fov: 100, duration: 1 });
 	}, [track]);
 
+	useEffect(() => {
+		if( scene ) {
+			scene.traverse(n => {
+				if( n.isMesh ) {
+					n.castShadow = true; 
+					n.receiveShadow = true;
+					if(n.material.map) n.material.map.anisotropy = 16; 
+				}
+			})
+		}
+	}, [scene])
+
 	return (
+		// <primitive object={scene} />
+
 		<group {...props} dispose={null}>
 			<animated.group
 				level={10}
@@ -156,22 +170,32 @@ export default function Model(props) {
 				<mesh
 					geometry={nodes["10_level_1"].geometry}
 					material={materials.RoofTilesSlate002_1K}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["10_level_2"].geometry}
 					material={materials["Material #2143563145"]}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["10_level_3"].geometry}
 					material={materials.MetalGalvanizedSteelWorn001_6K}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["10_level_4"].geometry}
 					material={materials.MetalGalvanizedSteelWorn001_6K}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["10_level_5"].geometry}
 					material={materials.Glass}
+					castShadow
+					receiveShadow
 				/>
 			</animated.group>
 			<animated.group
@@ -183,26 +207,38 @@ export default function Model(props) {
 				<mesh
 					geometry={nodes["09_Level_1"].geometry}
 					material={materials.MetalGalvanizedSteelWorn001_6K}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["09_Level_2"].geometry}
 					material={materials.Glass}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["09_Level_3"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["09_Level_4"].geometry}
 					material={materials["Iron Rough"]}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["09_Level_5"].geometry}
 					material={materials.Portland_Stone}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["09_Level_6"].geometry}
 					material={materials.Terrace_Decking}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["09_Level_7"].geometry}
@@ -211,16 +247,22 @@ export default function Model(props) {
 							? selectedMaterial
 							: materials.RoofTilesSlate002_1K
 					}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["09_Level_8"].geometry}
 					material={
 						selected9th && track === 99 ? selectedMaterial : materials.Red_Brick
 					}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["09_Level_9"].geometry}
 					material={materials.Floor}
+					castShadow
+					receiveShadow
 				/>
 			</animated.group>
 			<animated.group
@@ -232,24 +274,34 @@ export default function Model(props) {
 				<mesh
 					geometry={nodes["08_Level_1"].geometry}
 					material={materials.Glass}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["08_Level_2"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["08_Level_3"].geometry}
 					material={
 						selected8th && track === 99 ? selectedMaterial : materials.Red_Brick
 					}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["08_Level_4"].geometry}
 					material={materials.Portland_Stone}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["08_Level_5"].geometry}
 					material={materials["Iron Rough"]}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["08_Level_6"].geometry}
@@ -258,10 +310,14 @@ export default function Model(props) {
 							? selectedMaterial
 							: materials.RoofTilesSlate002_1K
 					}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["08_Level_7"].geometry}
 					material={materials.MetalGalvanizedSteelWorn001_6K}
+					castShadow
+					receiveShadow
 				/>
 			</animated.group>
 			<animated.group
@@ -273,28 +329,40 @@ export default function Model(props) {
 				<mesh
 					geometry={nodes["07_Level_1"].geometry}
 					material={materials.MetalGalvanizedSteelWorn001_6K}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["07_Level_2"].geometry}
 					material={materials.Portland_Stone}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["07_Level_3"].geometry}
 					material={materials.Glass}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["07_Level_4"].geometry}
 					material={materials.Floor}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["07_Level_5"].geometry}
 					material={
 						selected7th && track === 99 ? selectedMaterial : materials.Red_Brick
 					}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["07_Level_6"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["07_Level_7"].geometry}
@@ -303,6 +371,8 @@ export default function Model(props) {
 							? selectedMaterial
 							: materials.RoofTilesSlate002_1K
 					}
+					castShadow
+					receiveShadow
 				/>
 			</animated.group>
 			<animated.group
@@ -314,28 +384,40 @@ export default function Model(props) {
 				<mesh
 					geometry={nodes["06_Level_1"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["06_Level_2"].geometry}
 					material={
 						selected6th && track === 99 ? selectedMaterial : materials.Red_Brick
 					}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["06_Level_3"].geometry}
 					material={materials["Iron Rough"]}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["06_Level_4"].geometry}
 					material={materials["Material #2143563145"]}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["06_Level_5"].geometry}
 					material={materials.Portland_Stone}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["06_Level_6"].geometry}
 					material={materials.MetalGalvanizedSteelWorn001_6K}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["06_Level_7"].geometry}
@@ -344,20 +426,28 @@ export default function Model(props) {
 							? selectedMaterial
 							: materials.RoofTilesSlate002_1K
 					}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["06_Level_8"].geometry}
 					material={materials.Portland_Stone}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["06_Level_9"].geometry}
 					material={materials.Glass}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["06_Level_10"].geometry}
 					material={
 						selected6th && track === 99 ? selectedMaterial : materials.Red_Brick
 					}
+					castShadow
+					receiveShadow
 				/>
 			</animated.group>
 			<animated.group
@@ -369,32 +459,46 @@ export default function Model(props) {
 				<mesh
 					geometry={nodes["05_Level_1"].geometry}
 					material={materials.Portland_Stone}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["05_Level_2"].geometry}
 					material={
 						selected5th && track === 99 ? selectedMaterial : materials.Red_Brick
 					}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["05_Level_3"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["05_Level_4"].geometry}
 					material={materials.Glass}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["05_Level_5"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["05_Level_6"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["05_Level_7"].geometry}
 					material={materials.Floor}
+					castShadow
+					receiveShadow
 				/>
 			</animated.group>
 			<animated.group
@@ -406,24 +510,34 @@ export default function Model(props) {
 				<mesh
 					geometry={nodes["04_Level_1"].geometry}
 					material={materials.Portland_Stone}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["04_Level_2"].geometry}
 					material={materials["Iron Rough"]}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["04_Level_3"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["04_Level_4"].geometry}
 					material={
 						selected4th && track === 99 ? selectedMaterial : materials.Red_Brick
 					}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["04_Level_5"].geometry}
 					material={materials.Glass}
+					castShadow
+					receiveShadow
 				/>
 			</animated.group>
 			<animated.group
@@ -435,36 +549,52 @@ export default function Model(props) {
 				<mesh
 					geometry={nodes["03_Level_1"].geometry}
 					material={materials.Portland_Stone}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["03_Level_2"].geometry}
 					material={
 						selected3rd && track === 99 ? selectedMaterial : materials.Red_Brick
 					}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["03_Level_3"].geometry}
 					material={materials["Iron Rough"]}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["03_Level_4"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["03_Level_5"].geometry}
 					material={materials.Glass}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["03_Level_6"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["03_Level_7"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["03_Level_8"].geometry}
 					material={materials.Floor}
+					castShadow
+					receiveShadow
 				/>
 			</animated.group>
 			<animated.group
@@ -476,24 +606,34 @@ export default function Model(props) {
 				<mesh
 					geometry={nodes["02_Level_1"].geometry}
 					material={materials.Portland_Stone}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["02_Level_2"].geometry}
 					material={
 						selected2nd && track === 99 ? selectedMaterial : materials.Red_Brick
 					}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["02_Level_3"].geometry}
 					material={materials.Glass}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["02_Level_4"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["02_Level_5"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 			</animated.group>
 			<animated.group
@@ -507,34 +647,50 @@ export default function Model(props) {
 					material={
 						selected1st && track === 99 ? selectedMaterial : materials.Red_Brick
 					}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["01_Level_2"].geometry}
 					material={materials.Portland_Stone}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["01_Level_3"].geometry}
 					material={materials.Bronze_4K}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["01_Level_4"].geometry}
 					material={materials["Material #2143563145"]}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["01_Level_5"].geometry}
 					material={materials["Iron Rough"]}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["01_Level_6"].geometry}
 					material={materials.Glass}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["01_Level_7"].geometry}
 					material={materials["d34 brick"]}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["01_Level_8"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 			</animated.group>
 			<animated.group
@@ -546,10 +702,14 @@ export default function Model(props) {
 				<mesh
 					geometry={nodes["00_Level_1"].geometry}
 					material={materials.Grey}
+					castShadow
+					receiveShadow
 				/>
 				<mesh
 					geometry={nodes["00_Level_2"].geometry}
 					material={materials.Glass}
+					castShadow
+					receiveShadow
 				/>
 			</animated.group>
 		</group>

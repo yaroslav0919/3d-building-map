@@ -41,7 +41,7 @@ export default function Main() {
 				className="render-canvas"
 				ref={canvasRef}
 				camera={{
-					fov: 100,
+					fov: 60,
 					position: [100, 100, 100],
 					near: 1.0,
 					far: 10000,
@@ -56,10 +56,21 @@ export default function Main() {
 				}}
 			>
 				<color attach="background" args={["#aab5bf"]} />
-				<fog attach="fog" args={["#c1d1df", 1, 3000]} />
-				<ambientLight intensity={0.3} />
-				<pointLight position={[20, 100, 100]} intensity={1.3} castShadow />
+
+				<hemisphereLight intensity={1} skyColor={0xfdf8e7} groundColor={0x080820} />
+
+				<spotLight 
+					intensity={2}
+					color={ 0xffeedf }
+					position={[-20, 20, 20]} 
+					castShadow 
+					shadow-mapSize-height={1024 * 4}
+					shadow-mapSize-width={1024 * 4}
+					shadow-bias={ -0.0001 }
+				/>
+
 				{/* <Stats showPanel={0} className="stats" /> */}
+
 				<Suspense fallback={null}>
 					{/* <axesHelper scale={[100, 100, 100]} /> */}
 					<group position={[-27, track === 99 ? -28 : -14, 52]}>
