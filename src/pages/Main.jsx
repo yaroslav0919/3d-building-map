@@ -11,6 +11,7 @@ import {
 	MapControls,
 } from "@react-three/drei";
 import * as THREE from "three";
+import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Suspense, useEffect, useRef } from "react";
 import styled from "styled-components";
@@ -34,6 +35,7 @@ export default function Main() {
 	const { pathname } = useLocation();
 	const canvasRef = useRef();
 	const { track } = useStore();
+	const lightRef = useRef();
 
 	return (
 		<StyledMain>
@@ -50,9 +52,31 @@ export default function Main() {
 				gl={{
 					antialias: true,
 				}}
-				onCreated={({ gl }) => {
+				onCreated={({ gl, scene }) => {
 					gl.toneMapping = THREE.ACESFilmicToneMapping;
 					gl.toneMappingExposure = 1;
+					// gl.shadowMap.type = THREE.VSMShadowMap;
+
+					const helper = new THREE.CameraHelper(lightRef.current.shadow.camera);
+					scene.add(helper);
+
+					const params = {
+						lightPositionX: -20,
+						lightPositionY: 20,
+						lightPositionZ: 20,
+					};
+					const gui = new GUI({ width: 200 });
+					gui.add( params, 'lightPositionX', -50, 50 ).onChange( function( value ) {
+						lightRef.current.position.x = value;
+					});
+
+					gui.add( params, 'lightPositionY', -50, 50 ).onChange( function( value ) {
+						lightRef.current.position.y = value;
+					});
+
+					gui.add( params, 'lightPositionZ', -50, 50 ).onChange( function( value ) {
+						lightRef.current.position.z = value;
+					});
 				}}
 			>
 				<color attach="background" args={["#aab5bf"]} />
@@ -64,9 +88,12 @@ export default function Main() {
 					color={ 0xffeedf }
 					position={[-20, 20, 20]} 
 					castShadow 
-					shadow-mapSize-height={1024 * 4}
-					shadow-mapSize-width={1024 * 4}
+					shadow-mapSize-height={1024 * 8}
+					shadow-mapSize-width={1024 * 8}
 					shadow-bias={ -0.0001 }
+					shadow-radius={ 5 }
+					shadow-blurSamples={ 50 }
+					ref={ lightRef }
 				/>
 
 				{/* <Stats showPanel={0} className="stats" /> */}
