@@ -82,12 +82,12 @@ export default function Main() {
         }}
       >
         <color attach="background" args={["#aab5bf"]} />
-        <Sky
+        {/* <Sky
           distance={450000}
           sunPosition={[5, 1, 8]}
           inclination={0}
           azimuth={0.25}
-        />
+        /> */}
 
         <hemisphereLight
           intensity={1}
@@ -114,10 +114,7 @@ export default function Main() {
           {/* <axesHelper scale={[100, 100, 100]} /> */}
 
           <group position={[-27, track === 99 ? -28 : -14, 52]}>
-            <Environment
-              files="https://cdn.jsdelivr.net/gh/Sean-Bradley/React-Three-Fiber-Boilerplate@environment/public/img/venice_sunset_1k.hdr"
-              background
-            />
+            <Environment files="/images/scene-back.hdr" background />
             <BuildingV3 position={[0, 0, 0]} rotation={[0, 0, 0]} />
             {track === 100 && <Map position={[0, 0, 0]} />}
             {track === 100 && (
