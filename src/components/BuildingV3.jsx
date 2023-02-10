@@ -141,7 +141,7 @@ export default function Model(props) {
       pos.y = 0;
       pos.z = 50;
     }
-    console.log(camera);
+
     gsap.to(camera.position, {
       ...pos,
       onComplete: () => {

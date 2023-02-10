@@ -37,7 +37,7 @@ export default function FloorSelector() {
       </div> */}
       <div className="floors">
         <h3>Floor Plans</h3>
-        <button
+        {/* <button
           onClick={() => setTrack(1)}
           className={track === 1 ? "active" : undefined}
         >
@@ -49,7 +49,7 @@ export default function FloorSelector() {
         >
           <p>Ninth</p>
           <span>24,000</span>
-        </button>
+        </button> */}
         <button
           onClick={() => setTrack(3)}
           className={track === 3 ? "active" : undefined}
@@ -112,6 +112,13 @@ export default function FloorSelector() {
         >
           <p>Ground</p>
           <span>10,000</span>
+        </button>
+        <button
+          onClick={() => setTrack(11)}
+          className={track === 12 ? "active" : undefined}
+        >
+          <p>Lower Ground</p>
+          <span>20,000</span>
         </button>
       </div>
       <div className="plans">
