@@ -149,6 +149,7 @@ export default function Main() {
             minPolarAngle={orbitControlProps.minPolarAngle}
             maxDistance={orbitControlProps.maxDistance}
             minDistance={orbitControlProps.minDistance}
+            enablePan={false}
             // target={orbitControlProps.target}
             // enableKeys
           />
