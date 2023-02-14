@@ -114,7 +114,7 @@ export default function FloorSelector() {
           <span>10,000</span>
         </button>
         <button
-          onClick={() => setTrack(11)}
+          onClick={() => setTrack(12)}
           className={track === 12 ? "active" : undefined}
         >
           <p>Lower Ground</p>

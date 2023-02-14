@@ -46,7 +46,7 @@ export default function Main() {
         ref={canvasRef}
         camera={{
           fov: 60,
-          // position: [100, 100, 100],
+          position: [0, 0, 60],
           near: 1.0,
           far: 10000,
         }}

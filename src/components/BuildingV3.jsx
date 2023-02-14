@@ -12,9 +12,9 @@ import { useThree } from "@react-three/fiber";
 import { ang2Rad, rad2Ang } from "../helper/math";
 
 export default function Model(props) {
-  const { nodes, materials, scene } = useGLTF(
-    "./models/Export_OP1L-transformed.glb"
-  );
+  const { nodes, materials, scene } = useGLTF("./models/OPL.glb");
+  console.log(nodes);
+
   const gap = 1.8;
 
   const selectedMaterial = new THREE.MeshStandardMaterial({
@@ -63,8 +63,7 @@ export default function Model(props) {
       duration: 1000,
       easing: easings.easeInOutCubic,
     },
-    roofPos:
-      track === 99 ? [26.49, 33.19 * gap, -52.96] : [26.49, 33.19, -52.96],
+    // roofPos: track === 99 ? [26.49, 33.19 * gap, -52.96] : [26.49, 33.19, -52.96],
     f9Pos: track === 99 ? [27.57, 29.56 * gap, -52.81] : [27.57, 29.56, -52.81],
     f8Pos: track === 99 ? [27.04, 26.18 * gap, -55.63] : [27.04, 26.18, -55.63],
     f7Pos: track === 99 ? [27.09, 23.04 * gap, -54.28] : [27.09, 23.04, -54.28],
@@ -75,6 +74,7 @@ export default function Model(props) {
     f2Pos: track === 99 ? [27.16, 5.82 * gap, -54] : [27.16, 5.82, -54],
     f1Pos: track === 99 ? [27.13, 1.97 * gap, -53.65] : [27.13, 1.97, -53.65],
     f0Pos: track === 99 ? [27.23, 0, -54.04] : [27.23, 0.5, -54.04],
+    f_1Pos: track === 99 ? [27.23, -2 * gap, -54.04] : [27.23, -2, -54.04],
   });
 
   const handleSelect = (e) => {
@@ -118,11 +118,13 @@ export default function Model(props) {
 
   useEffect(() => {
     const target = new THREE.Vector3();
+
+    const tempPos = camera.position;
+
     const pos = {
       x: 100,
       y: 100,
       z: 100,
-      duration: 1,
     };
     if (track === 99) {
       pos.x = 0;
@@ -135,15 +137,17 @@ export default function Model(props) {
     } else if (track > 0) {
       pos.x = 10;
       pos.y = 36 - track * 2;
-      pos.z = 20;
+      pos.z = 10;
     } else {
       pos.x = 0;
       pos.y = 0;
-      pos.z = 50;
+      pos.z = 35;
     }
 
     gsap.to(camera.position, {
       ...pos,
+      duration: 2,
+      ease: "power2.inOut",
       onUpdate: () => {
         camera.lookAt(0, 0, 0);
       },
@@ -168,108 +172,12 @@ export default function Model(props) {
 
     <group {...props} dispose={null}>
       <animated.group
-        level={10}
-        visible={track > 1 && track < 90 ? false : true}
-        position={roofPos}
-        onClick={handleSelect}
-      >
-        <mesh
-          geometry={nodes["10_level_1"].geometry}
-          material={materials.RoofTilesSlate002_1K}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["10_level_2"].geometry}
-          material={materials["Material #2143563145"]}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["10_level_3"].geometry}
-          material={materials.MetalGalvanizedSteelWorn001_6K}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["10_level_4"].geometry}
-          material={materials.MetalGalvanizedSteelWorn001_6K}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["10_level_5"].geometry}
-          material={materials.Glass}
-          castShadow
-          receiveShadow
-        />
-      </animated.group>
-      <animated.group
         level={9}
         visible={track > 2 && track < 90 ? false : true}
         position={f9Pos}
         onClick={handleSelect}
       >
-        <mesh
-          geometry={nodes["09_Level_1"].geometry}
-          material={materials.MetalGalvanizedSteelWorn001_6K}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["09_Level_2"].geometry}
-          material={materials.Glass}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["09_Level_3"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["09_Level_4"].geometry}
-          material={materials["Iron Rough"]}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["09_Level_5"].geometry}
-          material={materials.Portland_Stone}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["09_Level_6"].geometry}
-          material={materials.Terrace_Decking}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["09_Level_7"].geometry}
-          material={
-            selected9th && track === 99
-              ? selectedMaterial
-              : materials.RoofTilesSlate002_1K
-          }
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["09_Level_8"].geometry}
-          material={
-            selected9th && track === 99 ? selectedMaterial : materials.Red_Brick
-          }
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["09_Level_9"].geometry}
-          material={materials.Floor}
-          castShadow
-          receiveShadow
-        />
+        <primitive object={nodes["09_Level"]} />
       </animated.group>
       <animated.group
         level={8}
@@ -277,54 +185,7 @@ export default function Model(props) {
         position={f8Pos}
         onClick={handleSelect}
       >
-        <mesh
-          geometry={nodes["08_Level_1"].geometry}
-          material={materials.Glass}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["08_Level_2"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["08_Level_3"].geometry}
-          material={
-            selected8th && track === 99 ? selectedMaterial : materials.Red_Brick
-          }
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["08_Level_4"].geometry}
-          material={materials.Portland_Stone}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["08_Level_5"].geometry}
-          material={materials["Iron Rough"]}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["08_Level_6"].geometry}
-          material={
-            selected8th && track === 99
-              ? selectedMaterial
-              : materials.RoofTilesSlate002_1K
-          }
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["08_Level_7"].geometry}
-          material={materials.MetalGalvanizedSteelWorn001_6K}
-          castShadow
-          receiveShadow
-        />
+        <primitive object={nodes["08_Level"]} />
       </animated.group>
       <animated.group
         level={7}
@@ -332,315 +193,52 @@ export default function Model(props) {
         position={f7Pos}
         onClick={handleSelect}
       >
-        <mesh
-          geometry={nodes["07_Level_1"].geometry}
-          material={materials.MetalGalvanizedSteelWorn001_6K}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["07_Level_2"].geometry}
-          material={materials.Portland_Stone}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["07_Level_3"].geometry}
-          material={materials.Glass}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["07_Level_4"].geometry}
-          material={materials.Floor}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["07_Level_5"].geometry}
-          material={
-            selected7th && track === 99 ? selectedMaterial : materials.Red_Brick
-          }
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["07_Level_6"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["07_Level_7"].geometry}
-          material={
-            selected7th && track === 99
-              ? selectedMaterial
-              : materials.RoofTilesSlate002_1K
-          }
-          castShadow
-          receiveShadow
-        />
+        <primitive object={nodes["07_Level"]} />
       </animated.group>
+
       <animated.group
         level={6}
         visible={track > 5 && track < 90 ? false : true}
         position={f6Pos}
         onClick={handleSelect}
       >
-        <mesh
-          geometry={nodes["06_Level_1"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["06_Level_2"].geometry}
-          material={
-            selected6th && track === 99 ? selectedMaterial : materials.Red_Brick
-          }
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["06_Level_3"].geometry}
-          material={materials["Iron Rough"]}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["06_Level_4"].geometry}
-          material={materials["Material #2143563145"]}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["06_Level_5"].geometry}
-          material={materials.Portland_Stone}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["06_Level_6"].geometry}
-          material={materials.MetalGalvanizedSteelWorn001_6K}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["06_Level_7"].geometry}
-          material={
-            selected6th && track === 99
-              ? selectedMaterial
-              : materials.RoofTilesSlate002_1K
-          }
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["06_Level_8"].geometry}
-          material={materials.Portland_Stone}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["06_Level_9"].geometry}
-          material={materials.Glass}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["06_Level_10"].geometry}
-          material={
-            selected6th && track === 99 ? selectedMaterial : materials.Red_Brick
-          }
-          castShadow
-          receiveShadow
-        />
+        <primitive object={nodes["06Level"]} />
       </animated.group>
+
       <animated.group
         level={5}
         visible={track > 6 && track < 90 ? false : true}
         position={f5Pos}
         onClick={handleSelect}
       >
-        <mesh
-          geometry={nodes["05_Level_1"].geometry}
-          material={materials.Portland_Stone}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["05_Level_2"].geometry}
-          material={
-            selected5th && track === 99 ? selectedMaterial : materials.Red_Brick
-          }
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["05_Level_3"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["05_Level_4"].geometry}
-          material={materials.Glass}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["05_Level_5"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["05_Level_6"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["05_Level_7"].geometry}
-          material={materials.Floor}
-          castShadow
-          receiveShadow
-        />
+        <primitive object={nodes["05_Level"]} />
       </animated.group>
+
       <animated.group
         level={4}
         visible={track > 7 && track < 90 ? false : true}
         position={f4Pos}
         onClick={handleSelect}
       >
-        <mesh
-          geometry={nodes["04_Level_1"].geometry}
-          material={materials.Portland_Stone}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["04_Level_2"].geometry}
-          material={materials["Iron Rough"]}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["04_Level_3"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["04_Level_4"].geometry}
-          material={
-            selected4th && track === 99 ? selectedMaterial : materials.Red_Brick
-          }
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["04_Level_5"].geometry}
-          material={materials.Glass}
-          castShadow
-          receiveShadow
-        />
+        <primitive object={nodes["04_Level"]} />
       </animated.group>
+
       <animated.group
         level={3}
         visible={track > 8 && track < 90 ? false : true}
         position={f3Pos}
         onClick={handleSelect}
       >
-        <mesh
-          geometry={nodes["03_Level_1"].geometry}
-          material={materials.Portland_Stone}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["03_Level_2"].geometry}
-          material={
-            selected3rd && track === 99 ? selectedMaterial : materials.Red_Brick
-          }
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["03_Level_3"].geometry}
-          material={materials["Iron Rough"]}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["03_Level_4"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["03_Level_5"].geometry}
-          material={materials.Glass}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["03_Level_6"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["03_Level_7"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["03_Level_8"].geometry}
-          material={materials.Floor}
-          castShadow
-          receiveShadow
-        />
+        <primitive object={nodes["03_Level"]} />
       </animated.group>
+
       <animated.group
         level={2}
         visible={track > 9 && track < 90 ? false : true}
         position={f2Pos}
         onClick={handleSelect}
       >
-        <mesh
-          geometry={nodes["02_Level_1"].geometry}
-          material={materials.Portland_Stone}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["02_Level_2"].geometry}
-          material={
-            selected2nd && track === 99 ? selectedMaterial : materials.Red_Brick
-          }
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["02_Level_3"].geometry}
-          material={materials.Glass}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["02_Level_4"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["02_Level_5"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
+        <primitive object={nodes["02_Level"]} />
       </animated.group>
       <animated.group
         level={1}
@@ -648,56 +246,7 @@ export default function Model(props) {
         position={f1Pos}
         onClick={handleSelect}
       >
-        <mesh
-          geometry={nodes["01_Level_1"].geometry}
-          material={
-            selected1st && track === 99 ? selectedMaterial : materials.Red_Brick
-          }
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["01_Level_2"].geometry}
-          material={materials.Portland_Stone}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["01_Level_3"].geometry}
-          material={materials.Bronze_4K}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["01_Level_4"].geometry}
-          material={materials["Material #2143563145"]}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["01_Level_5"].geometry}
-          material={materials["Iron Rough"]}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["01_Level_6"].geometry}
-          material={materials.Glass}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["01_Level_7"].geometry}
-          material={materials["d34 brick"]}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["01_Level_8"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
+        <primitive object={nodes["01_Level"]} />
       </animated.group>
       <animated.group
         level={0}
@@ -705,18 +254,15 @@ export default function Model(props) {
         position={f0Pos}
         onClick={handleSelect}
       >
-        <mesh
-          geometry={nodes["00_Level_1"].geometry}
-          material={materials.Grey}
-          castShadow
-          receiveShadow
-        />
-        <mesh
-          geometry={nodes["00_Level_2"].geometry}
-          material={materials.Glass}
-          castShadow
-          receiveShadow
-        />
+        <primitive object={nodes["00_Level"]} />
+      </animated.group>
+      <animated.group
+        level={0}
+        visible={track > 12 && track < 90 ? false : true}
+        position={f0Pos}
+        onClick={handleSelect}
+      >
+        <primitive object={nodes["-01_Level"]} />
       </animated.group>
     </group>
   );
