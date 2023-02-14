@@ -13,9 +13,8 @@ import { ang2Rad, rad2Ang } from "../helper/math";
 
 export default function Model(props) {
   const { nodes, materials, scene } = useGLTF("./models/OPL.glb");
-  console.log(nodes);
 
-  const gap = 1.8;
+  // const gap = 1.8;
 
   const selectedMaterial = new THREE.MeshStandardMaterial({
     color: 0xd7b176,
@@ -45,7 +44,7 @@ export default function Model(props) {
     track,
     setVrModal,
   } = useStore();
-  console.log(track);
+
   const {
     roofPos,
     f9Pos,
@@ -64,17 +63,17 @@ export default function Model(props) {
       easing: easings.easeInOutCubic,
     },
     // roofPos: track === 99 ? [26.49, 33.19 * gap, -52.96] : [26.49, 33.19, -52.96],
-    f9Pos: track === 99 ? [27.57, 29.56 * gap, -52.81] : [[27.57, 60, -52.81]],
-    f8Pos: track === 99 ? [27.04, 26.18 * gap, -55.63] : [27.04, 0, -55.63],
-    f7Pos: track === 99 ? [27.09, 23.04 * gap, -54.28] : [27.09, 0, -54.28],
-    f6Pos: track === 99 ? [27.18, 19.47 * gap, -54.21] : [27.18, 0, -54.21],
-    f5Pos: track === 99 ? [27.3, 16.02 * gap, -53.99] : [27.3, 0, -53.99],
-    f4Pos: track === 99 ? [27.28, 12.66 * gap, -53.97] : [27.28, 0, -53.97],
-    f3Pos: track === 99 ? [27.18, 9.23 * gap, -54.04] : [27.18, 0, -54.04],
-    f2Pos: track === 99 ? [27.16, 5.82 * gap, -54] : [27.16, 0, -54],
-    f1Pos: track === 99 ? [27.13, 1.97 * gap, -53.65] : [27.13, 0, -53.65],
-    f0Pos: track === 99 ? [27.23, 0, -54.04] : [27.23, 0, -54.04],
-    f_1Pos: track === 99 ? [27.23, -2 * gap, -54.04] : [27.23, 0, -54.04],
+    // f9Pos: track === 99 ? [27.57, 29.56 * gap, -52.81] : [[27.57, 0, -52.81]],
+    // f8Pos: track === 99 ? [27.04, 26.18 * gap, -55.63] : [27.04, 0, -55.63],
+    // f7Pos: track === 99 ? [27.09, 23.04 * gap, -54.28] : [27.09, 0, -54.28],
+    // f6Pos: track === 99 ? [27.18, 19.47 * gap, -54.21] : [27.18, 0, -54.21],
+    // f5Pos: track === 99 ? [27.3, 16.02 * gap, -53.99] : [27.3, 0, -53.99],
+    // f4Pos: track === 99 ? [27.28, 12.66 * gap, -53.97] : [27.28, 0, -53.97],
+    // f3Pos: track === 99 ? [27.18, 9.23 * gap, -54.04] : [27.18, 0, -54.04],
+    // f2Pos: track === 99 ? [27.16, 5.82 * gap, -54] : [27.16, 0, -54],
+    // f1Pos: track === 99 ? [27.13, 1.97 * gap, -53.65] : [27.13, 0, -53.65],
+    // f0Pos: track === 99 ? [27.23, 0, -54.04] : [27.23, 0, -54.04],
+    // f_1Pos: track === 99 ? [27.23, -2 * gap, -54.04] : [27.23, 0, -54.04],
   });
 
   const handleSelect = (e) => {
@@ -114,13 +113,13 @@ export default function Model(props) {
       default:
     }
   };
+
   const { camera } = useThree();
 
   useEffect(() => {
     const target = new THREE.Vector3();
 
-    const tempPos = camera.position;
-
+    visibleFloor(track);
     const pos = {
       x: 100,
       y: 100,
@@ -135,9 +134,9 @@ export default function Model(props) {
       pos.y = 60;
       pos.z = 60;
     } else if (track > 0) {
-      pos.x = 10;
-      pos.y = 50 - track * 2;
-      pos.z = 10;
+      pos.x = 3;
+      pos.y = 36 - track * 2;
+      pos.z = 1;
     } else {
       pos.x = 0;
       pos.y = 0;
@@ -152,6 +151,7 @@ export default function Model(props) {
         camera.lookAt(0, 0, 0);
       },
     });
+
     gsap.to(camera, { fov: 100, duration: 1 });
   }, [track]);
 
@@ -167,104 +167,24 @@ export default function Model(props) {
     }
   }, [scene]);
 
+  const visibleFloor = (track) => {
+    console.log(track);
+
+    if (track >= 2 && track <= 11) {
+      scene.children.forEach((group) => {
+        if (group.name[0] === "-") return;
+        if (parseInt(group.name[1]) >= 11 - track) group.visible = false;
+      });
+    } else {
+      scene.children.forEach((group) => {
+        if (group.isObject3D && group.visible === false) group.visible = true;
+      });
+      return;
+    }
+  };
+
   return (
-    // <primitive object={scene} />
-
-    <group {...props} dispose={null}>
-      <animated.group
-        level={9}
-        visible={track > 2 && track < 90 ? false : true}
-        position={f9Pos}
-        onClick={handleSelect}
-      >
-        <primitive object={nodes["09_Level"]} />
-      </animated.group>
-      <animated.group
-        level={8}
-        visible={track > 3 && track < 90 ? false : true}
-        position={f8Pos}
-        onClick={handleSelect}
-      >
-        <primitive object={nodes["08_Level"]} />
-      </animated.group>
-      <animated.group
-        level={7}
-        visible={track > 4 && track < 90 ? false : true}
-        position={f7Pos}
-        onClick={handleSelect}
-      >
-        <primitive object={nodes["07_Level"]} />
-      </animated.group>
-
-      <animated.group
-        level={6}
-        visible={track > 5 && track < 90 ? false : true}
-        position={f6Pos}
-        onClick={handleSelect}
-      >
-        <primitive object={nodes["06Level"]} />
-      </animated.group>
-
-      <animated.group
-        level={5}
-        visible={track > 6 && track < 90 ? false : true}
-        position={f5Pos}
-        onClick={handleSelect}
-      >
-        <primitive object={nodes["05_Level"]} />
-      </animated.group>
-
-      <animated.group
-        level={4}
-        visible={track > 7 && track < 90 ? false : true}
-        position={f4Pos}
-        onClick={handleSelect}
-      >
-        <primitive object={nodes["04_Level"]} />
-      </animated.group>
-
-      <animated.group
-        level={3}
-        visible={track > 8 && track < 90 ? false : true}
-        position={f3Pos}
-        onClick={handleSelect}
-      >
-        <primitive object={nodes["03_Level"]} />
-      </animated.group>
-
-      <animated.group
-        level={2}
-        visible={track > 9 && track < 90 ? false : true}
-        position={f2Pos}
-        onClick={handleSelect}
-      >
-        <primitive object={nodes["02_Level"]} />
-      </animated.group>
-      <animated.group
-        level={1}
-        visible={track > 10 && track < 90 ? false : true}
-        position={f1Pos}
-        onClick={handleSelect}
-      >
-        <primitive object={nodes["01_Level"]} />
-      </animated.group>
-      <animated.group
-        level={0}
-        visible={track > 11 && track < 90 ? false : true}
-        position={f0Pos}
-        onClick={handleSelect}
-      >
-        <primitive object={nodes["00_Level"]} />
-      </animated.group>
-      <animated.group
-        level={0}
-        visible={track > 12 && track < 90 ? false : true}
-        position={f0Pos}
-        onClick={handleSelect}
-      >
-        <primitive object={nodes["-01_Level"]} />
-      </animated.group>
-    </group>
+    <primitive object={scene} position={new THREE.Vector3(27.23, 0, -54.04)} />
   );
 }
 

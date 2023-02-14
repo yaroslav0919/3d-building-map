@@ -51,71 +51,71 @@ export default function FloorSelector() {
           <span>24,000</span>
         </button> */}
         <button
+          onClick={() => setTrack(2)}
+          className={track === 2 ? "active" : undefined}
+        >
+          <p>Eighth</p>
+          <span>24,000</span>
+        </button>
+        <button
           onClick={() => setTrack(3)}
           className={track === 3 ? "active" : undefined}
         >
-          <p>Eighth</p>
+          <p>Seventh</p>
           <span>24,000</span>
         </button>
         <button
           onClick={() => setTrack(4)}
           className={track === 4 ? "active" : undefined}
         >
-          <p>Seventh</p>
+          <p>Sixth</p>
           <span>24,000</span>
         </button>
         <button
           onClick={() => setTrack(5)}
           className={track === 5 ? "active" : undefined}
         >
-          <p>Sixth</p>
-          <span>24,000</span>
+          <p>Fifth</p>
+          <span>18,000</span>
         </button>
         <button
           onClick={() => setTrack(6)}
           className={track === 6 ? "active" : undefined}
         >
-          <p>Fifth</p>
-          <span>18,000</span>
+          <p>Fourth</p>
+          <span>20,000</span>
         </button>
         <button
           onClick={() => setTrack(7)}
           className={track === 7 ? "active" : undefined}
         >
-          <p>Fourth</p>
-          <span>20,000</span>
+          <p>Third</p>
+          <span>21,000</span>
         </button>
         <button
           onClick={() => setTrack(8)}
           className={track === 8 ? "active" : undefined}
         >
-          <p>Third</p>
-          <span>21,000</span>
+          <p>Second</p>
+          <span>19,000</span>
         </button>
         <button
           onClick={() => setTrack(9)}
           className={track === 9 ? "active" : undefined}
         >
-          <p>Second</p>
-          <span>19,000</span>
+          <p>First</p>
+          <span>15,000</span>
         </button>
         <button
           onClick={() => setTrack(10)}
           className={track === 10 ? "active" : undefined}
         >
-          <p>First</p>
-          <span>15,000</span>
-        </button>
-        <button
-          onClick={() => setTrack(11)}
-          className={track === 11 ? "active" : undefined}
-        >
           <p>Ground</p>
           <span>10,000</span>
         </button>
         <button
-          onClick={() => setTrack(12)}
-          className={track === 12 ? "active" : undefined}
+          onClick={() => setTrack(11)}
+          className={track === 11 ? "active" : undefined}
         >
           <p>Lower Ground</p>
           <span>20,000</span>
