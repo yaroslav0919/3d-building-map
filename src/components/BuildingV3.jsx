@@ -57,83 +57,9 @@ export default function Model(props) {
     selected9th,
   ];
 
-  // const {
-  //   roofPos,
-  //   f9Pos,
-  //   f8Pos,
-  //   f7Pos,
-  //   f6Pos,
-  //   f5Pos,
-  //   f4Pos,
-  //   f3Pos,
-  //   f2Pos,
-  //   f1Pos,
-  //   f0Pos,
-  // } = useSpring({
-  //   config: {
-  //     duration: 1000,
-  //     easing: easings.easeInOutCubic,
-  //   },
-  //   // roofPos: track === 99 ? [26.49, 33.19 * gap, -52.96] : [26.49, 33.19, -52.96],
-  //   // f9Pos: track === 99 ? [27.57, 29.56 * gap, -52.81] : [[27.57, 0, -52.81]],
-  //   // f8Pos: track === 99 ? [27.04, 26.18 * gap, -55.63] : [27.04, 0, -55.63],
-  //   // f7Pos: track === 99 ? [27.09, 23.04 * gap, -54.28] : [27.09, 0, -54.28],
-  //   // f6Pos: track === 99 ? [27.18, 19.47 * gap, -54.21] : [27.18, 0, -54.21],
-  //   // f5Pos: track === 99 ? [27.3, 16.02 * gap, -53.99] : [27.3, 0, -53.99],
-  //   // f4Pos: track === 99 ? [27.28, 12.66 * gap, -53.97] : [27.28, 0, -53.97],
-  //   // f3Pos: track === 99 ? [27.18, 9.23 * gap, -54.04] : [27.18, 0, -54.04],
-  //   // f2Pos: track === 99 ? [27.16, 5.82 * gap, -54] : [27.16, 0, -54],
-  //   // f1Pos: track === 99 ? [27.13, 1.97 * gap, -53.65] : [27.13, 0, -53.65],
-  //   // f0Pos: track === 99 ? [27.23, 0, -54.04] : [27.23, 0, -54.04],
-  //   // f_1Pos: track === 99 ? [27.23, -2 * gap, -54.04] : [27.23, 0, -54.04],
-  // });
-
-  const handleSelect = (e) => {
-    e.stopPropagation();
-    if (track !== 99) return;
-    switch (e.eventObject.level) {
-      case 9:
-        setSelected9th(!selected9th);
-        break;
-      case 8:
-        setSelected8th(!selected8th);
-        break;
-      case 7:
-        setSelected7th(!selected7th);
-        break;
-      case 6:
-        setSelected6th(!selected6th);
-        break;
-      case 5:
-        setSelected5th(!selected5th);
-        break;
-      case 4:
-        setSelected4th(!selected4th);
-        break;
-      case 3:
-        setSelected3rd(!selected3rd);
-        break;
-      case 2:
-        setSelected2nd(!selected2nd);
-        break;
-      case 1:
-        setSelected1st(!selected1st);
-        break;
-      case 0:
-        setSelected0th(!selected0th);
-        break;
-      default:
-    }
-  };
-
   const { camera } = useThree();
 
   useEffect(() => {
-    const highlightByName = (name) => {
-      // console.log(name);
-      // console.log(scene);
-    };
-
     selectedArray.forEach((floor, index) => {
       scene.traverse((mesh) => {
         if (mesh.name === `0${index}_RBrick`) {
@@ -141,11 +67,6 @@ export default function Model(props) {
         }
       });
     });
-
-    // scene.children.forEach((group) => {
-    //   if (group.name[0] === "-") return;
-    //   group.visible = parseInt(group.name[1]) < 11 - track ? true : false;
-    // });
   }, [selectedArray]);
 
   useEffect(() => {
