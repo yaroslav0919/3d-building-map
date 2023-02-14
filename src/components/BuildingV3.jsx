@@ -45,7 +45,7 @@ export default function Model(props) {
     track,
     setVrModal,
   } = useStore();
-
+  console.log(track);
   const {
     roofPos,
     f9Pos,
@@ -64,17 +64,17 @@ export default function Model(props) {
       easing: easings.easeInOutCubic,
     },
     // roofPos: track === 99 ? [26.49, 33.19 * gap, -52.96] : [26.49, 33.19, -52.96],
-    f9Pos: track === 99 ? [27.57, 29.56 * gap, -52.81] : [27.57, 29.56, -52.81],
-    f8Pos: track === 99 ? [27.04, 26.18 * gap, -55.63] : [27.04, 26.18, -55.63],
-    f7Pos: track === 99 ? [27.09, 23.04 * gap, -54.28] : [27.09, 23.04, -54.28],
-    f6Pos: track === 99 ? [27.18, 19.47 * gap, -54.21] : [27.18, 19.47, -54.21],
-    f5Pos: track === 99 ? [27.3, 16.02 * gap, -53.99] : [27.3, 16.02, -53.99],
-    f4Pos: track === 99 ? [27.28, 12.66 * gap, -53.97] : [27.28, 12.66, -53.97],
-    f3Pos: track === 99 ? [27.18, 9.23 * gap, -54.04] : [27.18, 9.23, -54.04],
-    f2Pos: track === 99 ? [27.16, 5.82 * gap, -54] : [27.16, 5.82, -54],
-    f1Pos: track === 99 ? [27.13, 1.97 * gap, -53.65] : [27.13, 1.97, -53.65],
-    f0Pos: track === 99 ? [27.23, 0, -54.04] : [27.23, 0.5, -54.04],
-    f_1Pos: track === 99 ? [27.23, -2 * gap, -54.04] : [27.23, -2, -54.04],
+    f9Pos: track === 99 ? [27.57, 29.56 * gap, -52.81] : [[27.57, 60, -52.81]],
+    f8Pos: track === 99 ? [27.04, 26.18 * gap, -55.63] : [27.04, 0, -55.63],
+    f7Pos: track === 99 ? [27.09, 23.04 * gap, -54.28] : [27.09, 0, -54.28],
+    f6Pos: track === 99 ? [27.18, 19.47 * gap, -54.21] : [27.18, 0, -54.21],
+    f5Pos: track === 99 ? [27.3, 16.02 * gap, -53.99] : [27.3, 0, -53.99],
+    f4Pos: track === 99 ? [27.28, 12.66 * gap, -53.97] : [27.28, 0, -53.97],
+    f3Pos: track === 99 ? [27.18, 9.23 * gap, -54.04] : [27.18, 0, -54.04],
+    f2Pos: track === 99 ? [27.16, 5.82 * gap, -54] : [27.16, 0, -54],
+    f1Pos: track === 99 ? [27.13, 1.97 * gap, -53.65] : [27.13, 0, -53.65],
+    f0Pos: track === 99 ? [27.23, 0, -54.04] : [27.23, 0, -54.04],
+    f_1Pos: track === 99 ? [27.23, -2 * gap, -54.04] : [27.23, 0, -54.04],
   });
 
   const handleSelect = (e) => {
@@ -136,7 +136,7 @@ export default function Model(props) {
       pos.z = 60;
     } else if (track > 0) {
       pos.x = 10;
-      pos.y = 36 - track * 2;
+      pos.y = 50 - track * 2;
       pos.z = 10;
     } else {
       pos.x = 0;
@@ -152,7 +152,7 @@ export default function Model(props) {
         camera.lookAt(0, 0, 0);
       },
     });
-    // gsap.to(camera, { fov: 100, duration: 1 });
+    gsap.to(camera, { fov: 100, duration: 1 });
   }, [track]);
 
   useEffect(() => {
