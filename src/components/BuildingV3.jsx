@@ -144,7 +144,7 @@ export default function Model(props) {
 
     gsap.to(camera.position, {
       ...pos,
-      onComplete: () => {
+      onUpdate: () => {
         camera.lookAt(0, 0, 0);
       },
     });
