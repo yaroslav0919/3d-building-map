@@ -44,37 +44,49 @@ export default function Model(props) {
     track,
     setVrModal,
   } = useStore();
+  const selectedArray = [
+    selected0th,
+    selected1st,
+    selected2nd,
+    selected3rd,
+    selected4th,
+    selected5th,
+    selected6th,
+    selected7th,
+    selected8th,
+    selected9th,
+  ];
 
-  const {
-    roofPos,
-    f9Pos,
-    f8Pos,
-    f7Pos,
-    f6Pos,
-    f5Pos,
-    f4Pos,
-    f3Pos,
-    f2Pos,
-    f1Pos,
-    f0Pos,
-  } = useSpring({
-    config: {
-      duration: 1000,
-      easing: easings.easeInOutCubic,
-    },
-    // roofPos: track === 99 ? [26.49, 33.19 * gap, -52.96] : [26.49, 33.19, -52.96],
-    // f9Pos: track === 99 ? [27.57, 29.56 * gap, -52.81] : [[27.57, 0, -52.81]],
-    // f8Pos: track === 99 ? [27.04, 26.18 * gap, -55.63] : [27.04, 0, -55.63],
-    // f7Pos: track === 99 ? [27.09, 23.04 * gap, -54.28] : [27.09, 0, -54.28],
-    // f6Pos: track === 99 ? [27.18, 19.47 * gap, -54.21] : [27.18, 0, -54.21],
-    // f5Pos: track === 99 ? [27.3, 16.02 * gap, -53.99] : [27.3, 0, -53.99],
-    // f4Pos: track === 99 ? [27.28, 12.66 * gap, -53.97] : [27.28, 0, -53.97],
-    // f3Pos: track === 99 ? [27.18, 9.23 * gap, -54.04] : [27.18, 0, -54.04],
-    // f2Pos: track === 99 ? [27.16, 5.82 * gap, -54] : [27.16, 0, -54],
-    // f1Pos: track === 99 ? [27.13, 1.97 * gap, -53.65] : [27.13, 0, -53.65],
-    // f0Pos: track === 99 ? [27.23, 0, -54.04] : [27.23, 0, -54.04],
-    // f_1Pos: track === 99 ? [27.23, -2 * gap, -54.04] : [27.23, 0, -54.04],
-  });
+  // const {
+  //   roofPos,
+  //   f9Pos,
+  //   f8Pos,
+  //   f7Pos,
+  //   f6Pos,
+  //   f5Pos,
+  //   f4Pos,
+  //   f3Pos,
+  //   f2Pos,
+  //   f1Pos,
+  //   f0Pos,
+  // } = useSpring({
+  //   config: {
+  //     duration: 1000,
+  //     easing: easings.easeInOutCubic,
+  //   },
+  //   // roofPos: track === 99 ? [26.49, 33.19 * gap, -52.96] : [26.49, 33.19, -52.96],
+  //   // f9Pos: track === 99 ? [27.57, 29.56 * gap, -52.81] : [[27.57, 0, -52.81]],
+  //   // f8Pos: track === 99 ? [27.04, 26.18 * gap, -55.63] : [27.04, 0, -55.63],
+  //   // f7Pos: track === 99 ? [27.09, 23.04 * gap, -54.28] : [27.09, 0, -54.28],
+  //   // f6Pos: track === 99 ? [27.18, 19.47 * gap, -54.21] : [27.18, 0, -54.21],
+  //   // f5Pos: track === 99 ? [27.3, 16.02 * gap, -53.99] : [27.3, 0, -53.99],
+  //   // f4Pos: track === 99 ? [27.28, 12.66 * gap, -53.97] : [27.28, 0, -53.97],
+  //   // f3Pos: track === 99 ? [27.18, 9.23 * gap, -54.04] : [27.18, 0, -54.04],
+  //   // f2Pos: track === 99 ? [27.16, 5.82 * gap, -54] : [27.16, 0, -54],
+  //   // f1Pos: track === 99 ? [27.13, 1.97 * gap, -53.65] : [27.13, 0, -53.65],
+  //   // f0Pos: track === 99 ? [27.23, 0, -54.04] : [27.23, 0, -54.04],
+  //   // f_1Pos: track === 99 ? [27.23, -2 * gap, -54.04] : [27.23, 0, -54.04],
+  // });
 
   const handleSelect = (e) => {
     e.stopPropagation();
@@ -117,7 +129,27 @@ export default function Model(props) {
   const { camera } = useThree();
 
   useEffect(() => {
-    const target = new THREE.Vector3();
+    const highlightByName = (name) => {
+      // console.log(name);
+      // console.log(scene);
+    };
+
+    selectedArray.forEach((floor, index) => {
+      scene.traverse((mesh) => {
+        if (mesh.name === `0${index}_RBrick`) {
+          mesh.material = floor ? selectedMaterial : materials.RBrick;
+        }
+      });
+    });
+
+    // scene.children.forEach((group) => {
+    //   if (group.name[0] === "-") return;
+    //   group.visible = parseInt(group.name[1]) < 11 - track ? true : false;
+    // });
+  }, [selectedArray]);
+
+  useEffect(() => {
+    const tempCamPos = camera.position;
 
     visibleFloor(track);
     const pos = {
@@ -135,7 +167,7 @@ export default function Model(props) {
       pos.z = 60;
     } else if (track > 0) {
       pos.x = 3;
-      pos.y = 36 - track * 2;
+      pos.y = 36 - track * 3;
       pos.z = 1;
     } else {
       pos.x = 0;
@@ -143,14 +175,18 @@ export default function Model(props) {
       pos.z = 35;
     }
 
-    gsap.to(camera.position, {
-      ...pos,
-      duration: 2,
-      ease: "power2.inOut",
-      onUpdate: () => {
-        camera.lookAt(0, 0, 0);
-      },
-    });
+    gsap.fromTo(
+      camera.position,
+      { x: 0, y: 0, z: 30 },
+      {
+        ...pos,
+        duration: 2,
+        ease: "power2.inOut",
+        onUpdate: () => {
+          camera.lookAt(0, 0, 0);
+        },
+      }
+    );
 
     gsap.to(camera, { fov: 100, duration: 1 });
   }, [track]);
@@ -173,7 +209,7 @@ export default function Model(props) {
     if (track >= 2 && track <= 11) {
       scene.children.forEach((group) => {
         if (group.name[0] === "-") return;
-        if (parseInt(group.name[1]) >= 11 - track) group.visible = false;
+        group.visible = parseInt(group.name[1]) < 11 - track ? true : false;
       });
     } else {
       scene.children.forEach((group) => {
