@@ -45,7 +45,7 @@ export default function Main() {
         className="render-canvas"
         ref={canvasRef}
         camera={{
-          fov: 60,
+          fov: 30,
           position: [0, 0, 60],
           near: 1.0,
           far: 10000,
