@@ -106,7 +106,7 @@ export default function Model(props) {
       },
     });
 
-    gsap.to(camera, { fov: 100, duration: 1 });
+    // gsap.to(camera, { fov: 100, duration: 1 });
   }, [track]);
 
   useEffect(() => {

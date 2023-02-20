@@ -45,10 +45,11 @@ export default function Main() {
         className="render-canvas"
         ref={canvasRef}
         camera={{
-          fov: 30,
+          fov: 60,
           position: [0, 0, 60],
           near: 1.0,
           far: 10000,
+          aspect: window.innerWidth / window.innerHeight,
         }}
         shadows
         gl={{
