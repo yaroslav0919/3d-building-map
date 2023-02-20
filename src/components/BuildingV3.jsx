@@ -17,7 +17,7 @@ export default function Model(props) {
   // const gap = 1.8;
 
   const selectedMaterial = new THREE.MeshStandardMaterial({
-    color: 0xd7b176,
+    color: 0x237597,
   });
 
   const {
@@ -96,18 +96,15 @@ export default function Model(props) {
       pos.z = 35;
     }
 
-    gsap.fromTo(
-      camera.position,
-      { x: 0, y: 0, z: 30 },
-      {
-        ...pos,
-        duration: 2,
-        ease: "power2.inOut",
-        onUpdate: () => {
-          camera.lookAt(0, 0, 0);
-        },
-      }
-    );
+    gsap.to(camera.position, {
+      ...pos,
+      delay: 1,
+      duration: 2,
+      ease: "power2.inOut",
+      onUpdate: () => {
+        camera.lookAt(0, 0, 0);
+      },
+    });
 
     gsap.to(camera, { fov: 100, duration: 1 });
   }, [track]);
