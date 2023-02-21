@@ -9,7 +9,7 @@ const Controls = (props) => {
   const ref = useRef();
 
   useEffect(() => {
-    ref.current?.update();
+    // ref.current?.update();
     ref.current?.addEventListener("change", invalidate);
   });
 

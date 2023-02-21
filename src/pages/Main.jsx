@@ -60,8 +60,8 @@ export default function Main() {
           gl.toneMappingExposure = 1;
           // gl.shadowMap.type = THREE.VSMShadowMap;
 
-          const helper = new THREE.CameraHelper(lightRef.current.shadow.camera);
-          scene.add(helper);
+          // const helper = new THREE.CameraHelper(lightRef.current.shadow.camera);
+          // scene.add(helper);
 
           const params = {
             lightPositionX: -20,
@@ -167,6 +167,7 @@ const StyledMain = styled.section`
 `;
 
 const DebugCam = () => {
+  console.log("debugcam")
   const camRef = useRef();
   const { camera, gl } = useThree();
 

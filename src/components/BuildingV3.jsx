@@ -88,7 +88,7 @@ export default function Model(props) {
       pos.z = 60;
     } else if (track > 0) {
       pos.x = 3;
-      pos.y = 36 - track * 3;
+      pos.y = 55 - track * 3;
       pos.z = 1;
     } else {
       pos.x = 0;
