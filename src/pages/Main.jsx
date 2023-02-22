@@ -54,12 +54,13 @@ export default function Main() {
         shadows
         gl={{
           antialias: true,
+          toneMapping: THREE.ACESFilmicToneMapping,
         }}
         onCreated={({ gl, scene }) => {
           gl.toneMapping = THREE.ACESFilmicToneMapping;
+
           gl.toneMappingExposure = 1;
           // gl.shadowMap.type = THREE.VSMShadowMap;
-
           // const helper = new THREE.CameraHelper(lightRef.current.shadow.camera);
           // scene.add(helper);
 
@@ -167,7 +168,7 @@ const StyledMain = styled.section`
 `;
 
 const DebugCam = () => {
-  console.log("debugcam")
+  console.log("debugcam");
   const camRef = useRef();
   const { camera, gl } = useThree();
 
