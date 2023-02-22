@@ -92,7 +92,7 @@ export default function Main() {
         /> */}
 
         <hemisphereLight
-          intensity={1}
+          intensity={0.5}
           skyColor={0xfdf8e7}
           groundColor={0x080820}
         />
